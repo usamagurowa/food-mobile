@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <title>Food Mobile — Menu</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">A/K DELICIOUS FOOD</div>
+    <a class="nav-btn" href="contact.html">Contact</a>
+  </header>
+
+  <main class="container">
+    <section class="menu">
+      <h1>What we sell</h1>
+      <div id="menu-list" class="menu-list"></div>
+    </section>
+
+    <section class="cart-panel" id="cart-panel">
+      <h2>Your Cart</h2>
+      <ul id="cart-items"></ul>
+      <div class="cart-total">Total: ₦<span id="cart-total">0.00</span></div>
+      <button id="checkout" class="primary">Place Order</button>
+    </section>
+  </main>
+
+  <div id="order-modal" class="modal">
+    <div class="modal-content">
+      <h3>Place Order</h3>
+      <form id="order-form">
+        <label>Name<input name="name" required></label>
+        <label>Phone<input name="phone" required></label>
+        <label>Address<textarea name="address" required>Presidential lodge near specialist hospital jalingo, taraba</textarea></label>
+        <div class="actions"><button type="submit" class="primary">Send Order</button> <button type="button" id="cancel">Cancel</button></div>
+      </form>
+      <div id="order-result" class="order-result"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
