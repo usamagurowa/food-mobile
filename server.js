@@ -22,12 +22,12 @@ function writeOrders(data){
 
 // simple menu data
 const MENU = [
-  {id:1,name:'Meat Pie',price:150,image:'https://picsum.photos/seed/meatpie/400/300'},
-  {id:2,name:'Samosa',price:50,image:'https://picsum.photos/seed/samosa/400/300'},
-  {id:3,name:'Spring Roll',price:70,image:'https://picsum.photos/seed/springroll/400/300'},
-  {id:4,name:'Milky Donut',price:120,image:'https://picsum.photos/seed/donut/400/300'},
-  {id:5,name:'Fried Rice & Pepper Chicken',price:900,image:'https://picsum.photos/seed/friedrice/400/300'},
-  {id:6,name:'Brown Spaghetti & Meatballs',price:950,image:'https://picsum.photos/seed/spaghetti/400/300'}
+  {id:1,name:'Meat Pie',price:150,image:'images/meat-pie.svg'},
+  {id:2,name:'Samosa',price:50,image:'images/samosa.svg'},
+  {id:3,name:'Spring Roll',price:70,image:'images/spring-roll.svg'},
+  {id:4,name:'Milky Donut',price:120,image:'images/milky-donut.svg'},
+  {id:5,name:'Fried Rice & Pepper Chicken',price:900,image:'images/fried-rice.svg'},
+  {id:6,name:'Brown Spaghetti & Meatballs',price:950,image:'images/spaghetti.svg'}
 ];
 
 app.get('/api/menu', (req,res)=>{ res.json(MENU); });
