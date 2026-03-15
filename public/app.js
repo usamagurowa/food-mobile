@@ -23,9 +23,10 @@ function renderMenu(items){
   });
   el.querySelectorAll('.add').forEach(b=>b.addEventListener('click',()=>{ addToCart(+b.dataset.id); }));
   // attach image load handlers and error fallback
-  el.querySelectorAll('.thumb').forEach(img=>{
+  el.querySelectorAll('.thumb').forEach((img, index)=>{
     img.onload = ()=> img.classList.add('loaded');
     img.onerror = ()=> { img.src = 'images/placeholder.svg'; img.classList.add('loaded'); };
+    img.addEventListener('click', () => { showItemModal(items[index].image, items[index].name); });
   });
 }
 
@@ -93,6 +94,18 @@ document.getElementById('order-form').addEventListener('submit', async (e)=>{
   renderMenu(menu);
   renderCart();
 })();
+
+function showItemModal(imageSrc, name) {
+  const modal = document.getElementById('item-modal');
+  const img = document.getElementById('item-image');
+  img.src = imageSrc;
+  img.alt = name;
+  modal.classList.add('active');
+}
+
+document.getElementById('close-item-modal').addEventListener('click', () => {
+  document.getElementById('item-modal').classList.remove('active');
+});
 
 /* toast implementation */
 function showToast(msg){
