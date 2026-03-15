@@ -14,7 +14,7 @@ function renderMenu(items){
     img.loading = 'lazy';
     img.src = item.image || 'images/placeholder.svg';
     const title = document.createElement('div'); title.className='name'; title.textContent = item.name;
-    const meta = document.createElement('div'); meta.className='meta'; meta.textContent = '#'+item.price;
+    const meta = document.createElement('div'); meta.className='meta'; meta.textContent = '₦'+item.price;
     const row = document.createElement('div'); row.className='row';
     const addBtn = document.createElement('button'); addBtn.className='btn add'; addBtn.dataset.id = item.id; addBtn.textContent = 'Add';
     row.appendChild(addBtn);
