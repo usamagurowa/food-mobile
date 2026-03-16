@@ -31,6 +31,8 @@ const MENU = [
 ];
 
 
+app.get('/api/menu', (req,res)=>{ res.json(MENU); });
+
 app.get('/api/orders', (req,res)=>{ res.json(readOrders()); });
 
 app.post('/api/orders', (req,res)=>{
@@ -45,4 +47,5 @@ app.post('/api/orders', (req,res)=>{
 });
 
 app.listen(PORT, ()=>console.log(`Food-mobile server running on http://localhost:${PORT}`));
+
 
