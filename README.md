@@ -11,8 +11,7 @@ npm start
 
 Pages:
 - `/` — menu + cart + place order
-- `/contact.html` — contact numbers
-- `/address.html` — physical address
+
 
 API:
 - `GET /api/menu` — returns menu
