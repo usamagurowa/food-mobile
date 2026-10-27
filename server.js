@@ -6,18 +6,29 @@ const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const DB = path.join(__dirname, 'orders.json');
+
+// Use /tmp directory on Vercel since the main file system is read-only
+const DB = process.env.VERCEL ? path.join('/tmp', 'orders.json') : path.join(__dirname, 'orders.json');
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 function readOrders(){
-  try{ return JSON.parse(fs.readFileSync(DB, 'utf8') || '[]'); }
-  catch(e){ return []; }
+  try { 
+    if (!fs.existsSync(DB)) return [];
+    return JSON.parse(fs.readFileSync(DB, 'utf8') || '[]'); 
+  } catch(e) { 
+    return []; 
+  }
 }
+
 function writeOrders(data){
-  fs.writeFileSync(DB, JSON.stringify(data, null, 2), 'utf8');
+  try {
+    fs.writeFileSync(DB, JSON.stringify(data, null, 2), 'utf8');
+  } catch (e) {
+    console.error('Error writing orders:', e);
+  }
 }
 
 // simple menu data
@@ -30,12 +41,11 @@ const MENU = [
   {id:6,name:'Brown Spaghetti & Meatballs',price:3000,image:'https://images.unsplash.com/photo-1610657400673-7fc8941f403f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}
 ];
 
+app.get('/api/menu', (req, res) => { res.json(MENU); });
 
-app.get('/api/menu', (req,res)=>{ res.json(MENU); });
+app.get('/api/orders', (req, res) => { res.json(readOrders()); });
 
-app.get('/api/orders', (req,res)=>{ res.json(readOrders()); });
-
-app.post('/api/orders', (req,res)=>{
+app.post('/api/orders', (req, res) => {
   const orders = readOrders();
   const order = req.body;
   if(!order || !order.customer) return res.status(400).json({error:'invalid order'});
@@ -46,6 +56,9 @@ app.post('/api/orders', (req,res)=>{
   res.status(201).json(order);
 });
 
-app.listen(PORT, ()=>console.log(`Food-mobile server running on http://localhost:${PORT}`));
+// Only listen locally, export app for Vercel serverless
+if (require.main === module) {
+  app.listen(PORT, () => console.log(`Food-mobile server running on http://localhost:${PORT}`));
+}
 
-
+module.exports = app;
